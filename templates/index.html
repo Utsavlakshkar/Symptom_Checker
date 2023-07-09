@@ -1,0 +1,44 @@
+<html>
+    <head>    
+        <title>Symptom Checker</title>
+        <link rel = "icon" href = "{{ url_for("static", filename="css/Mastek Logo.jpg") }}" type = "image/x-icon">        
+        <link rel="stylesheet" href="{{ url_for("static", filename="css/styles.css") }}">
+    </head>
+    <body>    
+        <div class="header">
+            <img src="{{ url_for("static", filename="css/Mastek Logo.jpg") }}" width="100" height="60">        
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <center>            
+                <h1>Symptom Checker</h1>
+            </center>
+        </div>
+        <form action="/input" method="GET">
+            <div class="main">
+                <div class="box1">
+                    <img class="doctor" src="{{ url_for("static", filename="css/Doctor.jpg") }}" width="500" height="300">    
+                </div>
+                <br><br><br><br><br>
+                <div class="box2">                        
+                    This symptom checker aims to diagnose the disease suffered by the patient based on the symptoms entered by the patient.
+                    <br><br> The software will show you the list of symptoms and you have to enter either a single symptom or multiple symptoms separated by commas(,).                
+                    <br><br> Click on the button given below and enter the symptoms from the list given below.
+                </div>        
+            </div>
+            <br>
+            <marquee width="100%" direction="left" height="40px" scrollamount="20">
+                This symptom checker uses Machine Learning models to predict the diseases based on the symtomps entered by the patient.
+            </marquee>    
+            <table>
+                <tr>
+                    <div class="header1">
+                        <center>
+                            <br>
+                            <input type="submit" value="Move to Diagnosis">
+                            <br><br>
+                        </center>
+                    </div>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>

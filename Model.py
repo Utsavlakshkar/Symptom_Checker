@@ -1,6 +1,5 @@
-import numpy as np
 import pandas as pd
-#import micropip
+import numpy as np
 
 class Symptom_Checker:
     def conditional_probability(self,data,col,val,dec):
@@ -12,7 +11,7 @@ class Symptom_Checker:
         return n
 
     def probability(self,data,col,val):
-        adict={}
+        adict={}        
         for i in range(len(data['Disease'])):
             if (self.conditional_probability(data,col,val,data['Disease'][i]))!=0:
                 adict[data['Disease'][i]]=(self.conditional_probability(data,col,val,data['Disease'][i]))
@@ -22,13 +21,12 @@ class Symptom_Checker:
         adict = {keys[i]: values[i] for i in np.argsort(values)}        
         return ''.join(i+"," for i in list(adict.keys())).rstrip(",") if len(adict)>0 else ""
 
-    def result(self,data):        
+    def result(self,data,val):        
         lst=list(data.columns)
-        lst.pop()        
-        l1=[]        
-        for i in range(len(lst)):
-            print("\nFor the column",lst[i],"the list is\n",sorted(list(data[lst[i]].unique())))
-            val=input("\nEnter the symptoms by separating with comma(,): ").split(",")
+        lst.pop()
+        val=val.lower().split(",")
+        l1=[]
+        for i in range(len(lst)):        
             y=""
             for j in val:
                 x=self.probability(data,lst[i],j)            
@@ -43,23 +41,28 @@ class Symptom_Checker:
             else:
                 adict[i]+=1
         for i in adict:
-            adict[i]/=len(lst)
+            adict[i]/=len(lst)        
         l=[i for i in adict if adict[i]==max(adict.values())]
-        s=''.join(i+"," for i in l).rstrip(",")
+        s=''.join(i+", " for i in l).rstrip(", ")
         return s
 
-    def precaution(self,data):
-        s=self.result(data)        
-        print("\nThe most probable diseases for the given symptoms - ",s)
-        prec=pd.read_csv(r'symptom_precaution.csv')
-        prec=prec.apply(lambda x:x.fillna(x.value_counts().index[0]))        
-        lst=list(prec.columns)        
-        print("\nThe possible precautions for the diseases are:\n")
-        for i in s.split(","):
-            print("\nPrecautions for",i)
-            m=list(np.where(prec["Disease"]==i))[0]
-            for j in range(1,len(lst)):
-                print("Precuation",j," - ",list(prec[lst[j]][m])[0],end="\n")
+    def precaution(self,data,val):
+        s=self.result(data,val)       
+        if len(s)<=0:
+            print("\nNo diseases detected for the given symptoms")
+        else:
+            print("\nThe most probable diseases for the given symptoms - ",s)
+            prec=pd.read_csv(r'C:\Users\utsav\VIT\Intenship\Mastek\Symptom Checker\symptom_precaution.csv')
+            prec=prec.apply(lambda x:x.fillna(x.value_counts().index[0]))        
+            lst=list(prec.columns)                
+            print("\nThe possible precautions for the diseases are:")
+            for i in s.split(","):
+                i=i.strip()
+                m=list(np.where(prec["Disease"]==i))[0]            
+                if len(m)>0:
+                    print("\nPrecautions for",i)                                    
+                    for j in range(1,5):                
+                        print("Precuation",j," - ",list(prec[lst[j]][m])[0],end="\n")
 
     def preprocessing(self,data):
         adict={}
@@ -91,13 +94,13 @@ class Symptom_Checker:
         data=data.apply(lambda x:x.fillna(x.value_counts().index[0]))
         return data
 
-    def main(self):        
-        data=pd.read_csv(r"C:/Users/utsav/VIT/Intenship/Mastek/Symptom Checker/dataset.csv")
-        print(data)
-        data=self.preprocessing(data)
-        self.precaution(data)
+    def diagnose(self,val):        
+        data=pd.read_csv(r'C:\Users\utsav\VIT\Intenship\Mastek\Symptom Checker\dataset.csv')        
+        data=self.preprocessing(data)                
+        self.precaution(data,val)
 
-    def __init__(self):
-        self.main()
+    #def __init__(self):
+    #    self.diagnose(input())
 
 sc=Symptom_Checker()
+sc.diagnose(input())
