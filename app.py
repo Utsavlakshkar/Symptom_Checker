@@ -1,5 +1,8 @@
-from flask import Flask,render_template,request
+from flask import Flask,render_template,request,jsonify
 import pickle
+import joblib
+from Model import Symptom_Checker
+
 app=Flask(__name__)
 with open('model_symptom_checker.pkl','rb') as file:
     model = pickle.load(file)
@@ -8,12 +11,12 @@ def home():
     return render_template('index.html')
 
 @app.route("/input",methods=['POST','GET'])
-def input():
+def input():    
     return render_template('Symptom_Checker.html')
 
 @app.route("/result",methods=['POST','GET'])
 def result():    
-    lst="\n".join(model.diagnose(list(request.form.values())[0]).split("\n"))
+    lst=model.diagnose(list(request.form.values())[0]).split(":")
     return render_template("result.html",diseases=lst) 
 
 if __name__=="__main__":        

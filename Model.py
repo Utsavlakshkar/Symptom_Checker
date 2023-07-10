@@ -51,10 +51,10 @@ class Symptom_Checker:
         s=self.result(data,val)       
         s1=""
         if len(s)<=0:
-            s1=("\nNo diseases detected for the given symptoms")
+            return "\nNo diseases detected for the given symptoms"
         else:
-            s1+=("\nThe most probable diseases for the given symptoms - "+s)
-            prec=pd.read_csv(r'symptom_precaution.csv')
+            s1+=("\nThe most probable diseases for the given symptoms - "+s+":")
+            prec=pd.read_csv(r'C:\Users\utsav\VIT\Intenship\Mastek\Symptom Checker\symptom_precaution.csv')
             prec=prec.apply(lambda x:x.fillna(x.value_counts().index[0]))        
             lst=list(prec.columns)                
             s1+=("\nThe possible precautions for the diseases are:")
@@ -62,9 +62,9 @@ class Symptom_Checker:
                 i=i.strip()
                 m=list(np.where(prec["Disease"]==i))[0]            
                 if len(m)>0:
-                    s1+=("\nPrecautions for "+i)                                    
+                    s1+=("\nPrecautions for "+i+"&")                                    
                     for j in range(1,5):                
-                        s1+=("\nPrecuation "+str(j)+" - "+list(prec[lst[j]][m])[0])
+                        s1+=("\nPrecuation "+str(j)+" - "+list(prec[lst[j]][m])[0]+"&")
                     s1+=":\n"
             return s1
 
@@ -99,10 +99,9 @@ class Symptom_Checker:
         return data
 
     def diagnose(self,val):        
-        data=pd.read_csv(r'dataset.csv')        
+        data=pd.read_csv(r'C:\Users\utsav\VIT\Intenship\Mastek\Symptom Checker\dataset.csv')        
         data=self.preprocessing(data)         
-        s=str(self.precaution(data,val))
-        print(type(s))   
+        s=str(self.precaution(data,val))          
         return(s)
 
 sc=Symptom_Checker()
