@@ -19,3 +19,6 @@ This contains the HTML files, which are displayed at the frontend
 
 # static
 This contains the CSS file used for styling
+
+# Running the files
+Open the command prompt and execute the Model.py (python3 Model.py) file to create a model. Then execute the app.py(python3 app.py) file to host the website on the local website. Then follow the instructions given on the website.
