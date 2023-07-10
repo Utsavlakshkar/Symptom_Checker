@@ -51,7 +51,7 @@ class Symptom_Checker:
         s=self.result(data,val)       
         s1=""
         if len(s)<=0:
-            return "\nNo diseases detected for the given symptoms"
+            return "\nNo diseases detected for the given symptoms. Please select the symptoms from the given list."
         else:
             s1+=("\nThe most probable diseases for the given symptoms - "+s+":")
             prec=pd.read_csv(r'C:\Users\utsav\VIT\Intenship\Mastek\Symptom Checker\symptom_precaution.csv')
