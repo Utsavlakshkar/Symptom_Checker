@@ -13,7 +13,15 @@
             </center>
         </div>
         <center>
-            <p>{{diseases}}</p>
+            <div class="box4">
+                {% for disease in diseases %}
+                    {% for precaution in disease.split('&') %}
+                        {{precaution}}
+                        <br>
+                    {% endfor %}
+                    <br>
+                {% endfor %}
+            </div>
         </center>
         <form action="/" method="GET">
             <table>

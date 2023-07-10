@@ -54,6 +54,17 @@ body{
     padding: 20px 20px 20px 20px;
     border: 2px solid navy;            
 }
+.box4{
+    background-color: white;
+    text-align: justify;                  
+    align-self: right;
+    font-family: Georgia, 'Times New Roman', Times, serif;    
+    
+    width: 100%;
+    flex: 50%;            
+    padding: 20px 20px 20px 20px;
+    border: 2px solid navy;            
+}
 
 .doctor{
     border: 2px solid navy;
@@ -104,7 +115,7 @@ marquee{
 p{
     text-align: justify;
     font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 20;    
+    font-size: 15;    
 }
 
 table,tr,td{
