@@ -102,6 +102,8 @@ marquee{
 
 p{
     text-align: justify;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 20;    
 }
 
 table,tr,td{

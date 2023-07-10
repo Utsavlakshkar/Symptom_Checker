@@ -13,7 +13,6 @@ def input():
 
 @app.route("/result",methods=['POST','GET'])
 def result():    
-    print("\nRender template")
     lst="\n".join(model.diagnose(list(request.form.values())[0]).split("\n"))
     return render_template("result.html",diseases=lst) 
 
