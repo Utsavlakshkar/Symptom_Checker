@@ -1,7 +1,5 @@
-from flask import Flask,render_template,request,jsonify
+from flask import Flask,render_template,request
 import pickle
-import joblib
-from Model import Symptom_Checker
 
 app=Flask(__name__)
 with open('model_symptom_checker.pkl','rb') as file:
