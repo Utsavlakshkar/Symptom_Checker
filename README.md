@@ -21,4 +21,4 @@ This contains the HTML files, which are displayed at the frontend
 This contains the CSS file used for styling
 
 # Running the files
-Create a new folder and download all the files in the folder. Open the folder in the command prompt and execute the Model.py (python3 Model.py) file to create a model. Then execute the app.py(python3 app.py) file to host the website on the local website. Then follow the instructions given on the website.
+Create a new folder and download all the files in the folder. Open the folder in the command prompt and execute the app.py(python3 app.py) file to host the website on the local website. Then follow the instructions given on the website.
