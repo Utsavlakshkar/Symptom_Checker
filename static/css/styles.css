@@ -47,6 +47,7 @@ body{
     text-align: justify;                  
     align-self: right;
     font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
     height: 300;
     width: 100%;
     flex: 50%;            
@@ -112,4 +113,5 @@ table,tr,td{
     text-align: center;    
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 10;    
+    font-weight: bold;
 }
