@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import pickle
 
 class Symptom_Checker:
     def conditional_probability(self,data,col,val,dec):
@@ -48,21 +49,24 @@ class Symptom_Checker:
 
     def precaution(self,data,val):
         s=self.result(data,val)       
+        s1=""
         if len(s)<=0:
-            print("\nNo diseases detected for the given symptoms")
+            s1=("\nNo diseases detected for the given symptoms")
         else:
-            print("\nThe most probable diseases for the given symptoms - ",s)
-            prec=pd.read_csv(r'C:\Users\utsav\VIT\Intenship\Mastek\Symptom Checker\symptom_precaution.csv')
+            s1+=("\nThe most probable diseases for the given symptoms - "+s)
+            prec=pd.read_csv(r'symptom_precaution.csv')
             prec=prec.apply(lambda x:x.fillna(x.value_counts().index[0]))        
             lst=list(prec.columns)                
-            print("\nThe possible precautions for the diseases are:")
+            s1+=("\nThe possible precautions for the diseases are:")
             for i in s.split(","):
                 i=i.strip()
                 m=list(np.where(prec["Disease"]==i))[0]            
                 if len(m)>0:
-                    print("\nPrecautions for",i)                                    
+                    s1+=("\nPrecautions for "+i)                                    
                     for j in range(1,5):                
-                        print("Precuation",j," - ",list(prec[lst[j]][m])[0],end="\n")
+                        s1+=("\nPrecuation "+str(j)+" - "+list(prec[lst[j]][m])[0])
+                    s1+=":\n"
+            return s1
 
     def preprocessing(self,data):
         adict={}
@@ -95,12 +99,12 @@ class Symptom_Checker:
         return data
 
     def diagnose(self,val):        
-        data=pd.read_csv(r'C:\Users\utsav\VIT\Intenship\Mastek\Symptom Checker\dataset.csv')        
-        data=self.preprocessing(data)                
-        self.precaution(data,val)
-
-    #def __init__(self):
-    #    self.diagnose(input())
+        data=pd.read_csv(r'dataset.csv')        
+        data=self.preprocessing(data)         
+        s=str(self.precaution(data,val))
+        print(type(s))   
+        return(s)
 
 sc=Symptom_Checker()
-sc.diagnose(input())
+with open('model_symptom_checker.pkl','wb') as file:
+    pickle.dump(sc,file)
